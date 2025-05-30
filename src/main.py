@@ -1,12 +1,15 @@
 """
 Resume Sorter API - Main Application Entry Point
 """
+
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from src.api.v1.routers import match_router
+from src.api.v1.routers import single_review
+
 from src.config import get_settings
 
 # Configure logging
@@ -37,7 +40,7 @@ def create_application() -> FastAPI:
     Create and configure the FastAPI application.
     """
     settings = get_settings()
-    
+
     app = FastAPI(
         title="Resume Sorter API",
         description="API for ranking and filtering resumes based on job descriptions",
@@ -59,6 +62,7 @@ def create_application() -> FastAPI:
 
     # Include routers
     app.include_router(match_router, prefix="/api/v1")
+    app.include_router(single_review, prefix="/api/v1")
 
     @app.get("/health", tags=["Health"])
     async def health_check():
@@ -72,4 +76,5 @@ app = create_application()
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
