@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from src.api.v1.routers import match_router
-from src.api.v1.routers import single_review
+from src.api.v1.routers.single_review  import router as single_review_router
 
 from src.config import get_settings
 
@@ -62,7 +62,7 @@ def create_application() -> FastAPI:
 
     # Include routers
     app.include_router(match_router, prefix="/api/v1")
-    app.include_router(single_review, prefix="/api/v1")
+    app.include_router(single_review_router, prefix="/api/v1")
 
     @app.get("/health", tags=["Health"])
     async def health_check():

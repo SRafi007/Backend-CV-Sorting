@@ -1,7 +1,6 @@
 """
 Pydantic schemas for the Resume Sorter API
 """
-
 from pydantic import BaseModel, Field, validator, field_validator
 from typing import List, Optional, Dict
 from datetime import datetime
@@ -150,7 +149,7 @@ class SingleReviewResponse(BaseModel):
     resume_id: str
     score: float
     similarity: float
-    education: Optional[dict]
+    education: Optional[EducationInfo]
     experience_years: Optional[float]
     skills_matched: List[dict]
     skills_missing: List[str]
